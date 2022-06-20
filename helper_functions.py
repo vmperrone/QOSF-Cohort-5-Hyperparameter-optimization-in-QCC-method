@@ -11,6 +11,21 @@ from openfermion.utils import count_qubits
 from openfermion.transforms import taper_off_qubits
 
 
+'''
+Helper functions for plotting heatmaps
+'''
+#"Yield successive n-sized chunks from list
+def chunks(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
+
+def max_value(inputlist):
+    return max([max(sublist) for sublist in inputlist])
+
+def min_value(inputlist):
+    return min([max(sublist) for sublist in inputlist])
+
+
 
 '''
 Helper functions to construct Pauli operator Hamiltonian

@@ -8,7 +8,7 @@ from openfermion.ops import QubitOperator
 from openfermion.utils import count_qubits, commutator
 
 from helper_functions import *
-
+from dwave.system.composites import EmbeddingComposite
 
 
 #Returns coherent state evaluated at given bloch angles
@@ -106,7 +106,7 @@ def minimize_expr(expr, angle_folds, amplitude_folds, sampler, max_cycles=5, num
     cont_dict = dict(zip(cont_vars, all_cont_vals[index]))
     disc_dict = dict(zip(disc_vars, all_disc_vals[index]))
     
-    return min_energy, cont_dict, disc_dict
+    return min_energy, cont_dict, disc_dict, response
 
 
 
@@ -197,7 +197,7 @@ def QCC(qubit_H, entanglers, angle_folds, amplitude_folds, sampler,
 
 
     #minimize QCC expression
-    QCC_energy, cont_dict, disc_dict = minimize_expr(expr, angle_folds, amplitude_folds, sampler,
+    QCC_energy, cont_dict, disc_dict, response = minimize_expr(expr, angle_folds, amplitude_folds, sampler,
         max_cycles=num_cycles, num_samples=num_samples, strength=strength, verbose=verbose)
 
 
@@ -245,4 +245,4 @@ def QCC(qubit_H, entanglers, angle_folds, amplitude_folds, sampler,
                 except KeyError:
                     pass
     
-    return QCC_energy, cont_dict
+    return QCC_energy, cont_dict, response
